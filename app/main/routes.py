@@ -6,26 +6,28 @@ from app import mongo
 @bp.route('/')
 def index():
     
-    if 'username' in session:
-        return 'Estas loggeado como ' + session['username']
+    try: 
+        permit = session['username']
+        print('SESSION USERNAME', session['username'])
+    except:
+        permit = "none"
+    print('AUTH LEVEL:', permit)
+    return render_template('main/index.html', session = session, permit=permit)
 
-    return render_template('main/index.html')
-
-@bp.route('/login', methods=['POST'])
+@bp.route('/login', methods=['GET','POST'])
 def login():
-
-    users = mongo.db.users
-    login_user = users.find_one({'name': request.form['username']})
-
-    if login_user: #If login_users exists, make validation
-        if bcrypt.hashpw(request.form['pass'].encode['utf-8'],\
-             login_user['password'].encode['utf-8']) == login_user['password'].encode('utf-8'):
-            
-            session['username'] = request.form['username']
-            return redirect(url_for('main.index'))
-        
-    return 'Usuario o contraseña inválidos'
     
+    if request.method == 'POST':
+        users = mongo.db.users
+        login_user = users.find_one({'name': request.form['username']})
+
+        if login_user: #If login_users exists, make validation
+            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
+                
+                session['username'] = request.form['username']
+                return redirect(url_for('main.index'))
+        
+    return render_template('main/login.html')
 
 @bp.route('/register', methods=['GET','POST'])
 def register():
@@ -45,3 +47,9 @@ def register():
         return 'Este usuario ya existe'
     
     return render_template('main/register.html')
+
+@bp.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect(url_for('main.index')) 
+

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for comp in compania %}
+
+<div class = "form-container">
+
+    <form method="post" action="/actualizar-cia" enctype="multipart/form-data">
+        <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
+        <!-- agregar inputs para crear nueva cia.-->
+        CODIGO COMPAÑIA:
+        <input type="text" value="{{comp[0]}}" name="COD_CIA" id="COD_CIA">
+        <br>
+        LINK LOGO:
+        <input type="text" value="{{comp[1]}}" name="LOGO" id="LOGO">
+        <br>
+        DESCRIPCION:
+        <input type="text" value="{{comp[2]}}" name="CDESCRIPCION" id="CDESCRIPCION">
+        <br>
+        NOMBRE DE COMPAÑIA:
+        <input type="text" value="{{comp[3]}}" name="NOMBRE_CIA" id="NOMBRE_CIA">
+        <br>
+        COLEGIO DE PROCEDENCIA:
+        <input type="text" value="{{comp[4]}}" name="COLEGIO_PROC" id="NOMBRE_CIA">
+        <br>
+        FASE ALCANZADA:
+        <input type="text" value="{{comp[6]}}" name="FASE_ALCANZADA" id="FASE_ALCANZADA">
+        <br>
+        
+        <input type="submit" value="Editar datos Compañía">
+
+    </form>
+{% endfor %}
+
+<br>
+<br>
+{% for red in red_social %}
+
+<div class = "form-container">
+
+    <form method="post" action="/actualizar-red-social" enctype="multipart/form-data">
+        <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
+        <!-- agregar inputs para crear nueva cia.-->
+        Link red social:
+        <input type="text" value="{{red[0]}}" name="RED_SOC" id="RED_SOC">
+        <br>
+        Nombre red social:
+        <input type="text" value="{{red[1]}}" name="NOMBRE_RED" id="NOMBRE_RED">
+        <br>
+        <input type = "hidden" name = "COD_CIA" id = "COD_CIA" value = "{{red[2]}}" />
+        <input type="submit" value="Editar datos de Red Social">
+    </form>
+</div>
+
+{% endfor %}
+<br>
+<br>
+{% for part in participa_en %}
+<div class = "form-container">
+
+    <form method="post" action="/actualizar-participa" enctype="multipart/form-data">
+        <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
+        <!-- agregar inputs para crear nueva cia.-->
+        PUNTAJE ACUMULADO:
+        <input type="text" value="{{part[0]}}" name="PUNT_ACUM" id="PUNT_ACUM">
+        <br>
+        CODIGO DE FASE:
+        <input type="text" value="{{part[2]}}" name="COD_FASE" id="COD_FASE">
+        <br>
+        <input type = "hidden" value = "{{part[1]}}"name = "COD_CIA" id = "COD_CIA"  />
+        <input type="submit" value="Editar datos de participacion">
+    </form>
+</div>
+{% endfor %}
+
+{% endblock %}

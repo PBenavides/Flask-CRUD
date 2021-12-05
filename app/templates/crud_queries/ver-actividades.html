@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align: center; font-weight: bolder;"> MANTENIMIENTO DE COMPAÑIA</h1>
+
+<div class = "form-container">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>NRO_ACT</th>
+                <th>LINK ACTIVIDAD</th>
+                <!--<th>DESCRIPCION</th>-->
+                <th>COMENTARIO</th>
+                <th>FECHA</th>
+                <th>NOMBRE ACTIVIDAD</th>
+                <!--<th>LINK RED SOCIAL</th>-->
+                <th>DETALLE</th>
+                <th>FASE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for field in actividades %}
+            <!-- C.COD_CIA, C.LOGO, C.CDESCRIPCION, C.NOMBRE_CIA, C.COLEGIO_PROC, 
+                C.FASE_ALCANZADA, RS.LINK, RS.RSNOMBRE AS NOMBRE_RED_SOCIAL, P.PUNT_ACUM, P.COD_FASE  -->
+            <tr>
+                <td>{{field[0]}}</td>
+                <td>{{field[1]}}</td>
+                <td>{{field[2]}}</td>
+                <td>{{field[3]}}</td>
+                <td>{{field[4]}}</td>
+                <td>{{field[5]}}</td>
+                <!--<td>{{compania[6]}}</td>-->
+                <td>{{field[6]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

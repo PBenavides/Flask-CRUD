@@ -14,8 +14,14 @@ def create_app(config_class = Config):
 
     mongo.init_app(app)
 
-
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+    print('main bp importado y registrado')
+    from app.crud_queries import bp as crud_bp
+    app.register_blueprint(crud_bp)
+    print('crud bp importado y registrado')
+
 
     return app
+
+from app import database

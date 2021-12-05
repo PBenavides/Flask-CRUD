@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align: center; font-weight: bolder;"> Puntuar Compañias - Fase 1</h1>
+
+<div class = "form-container">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>COD |</th>
+                <th>NOMBRE CIA |</th>
+                <th>NOMBRE COLEGIO |</th>
+                <th>RONDA |</th>
+
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for compania in tabla_resultados %}
+            <tr>
+                <td>{{compania[0]}}</td>
+                <td>{{compania[1]}}</td>
+                <td>{{compania[2]}}</td>
+                <td>{{compania[3]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    
+
+</div>
+
+{% endblock %}

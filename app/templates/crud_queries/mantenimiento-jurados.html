@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align: center; font-weight: bolder;"> MANTENIMIENTO DE JURADOS</h1>
+
+<div class = "form-container">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>COD</th>
+                <th>NOMBRE</th>
+
+                <th>APELLIDO</th>
+                <th>CORREO</th>
+                <th>LINKEDIN</th>
+
+                <th>ACTIVIDADES</th>
+                <th>OPCIONES</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for jurado in tabla_jurado %}
+            
+            <!-- C.COD_CIA, C.LOGO, C.CDESCRIPCION, C.NOMBRE_CIA, C.COLEGIO_PROC, 
+                C.FASE_ALCANZADA, RS.LINK, RS.RSNOMBRE AS NOMBRE_RED_SOCIAL, P.PUNT_ACUM, P.COD_FASE  -->
+            <tr>
+                <td>{{jurado[0]}}</td>
+                <td>{{jurado[1]}}</td>
+                <td>{{jurado[2]}}</td>
+                <td>{{jurado[3]}}</td>
+                <td>{{jurado[4]}}</td>
+                <td> 
+                    <a style="color:blue;" href = "/editar-jurado/{{jurado[0]}}"> Editar </a> | 
+                    <a style="color:blue;" href = "/eliminar-jurado/{{jurado[0]}}"> Eliminar </a>
+                </td>
+
+                <td>
+                    <a style="color:blue;" href = "/ver-actividad/{{jurado[0]}}">Actividades</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

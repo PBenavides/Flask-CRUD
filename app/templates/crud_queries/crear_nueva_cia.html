@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 style="text-align: center; font-weight: bolder;"> Iniciar Sesión</h1>
+
+<div class = "form-container">
+
+    <form method="post" action="/store-cia" enctype="multipart/form-data">
+        <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
+        <!-- agregar inputs para crear nueva cia.-->
+        CODIGO COMPAÑIA:
+        <input type="text" name="COD_CIA" id="COD_CIA">
+        <br>
+        LINK LOGO:
+        <input type="text" name="LOGO" id="LOGO">
+        <br>
+        DESCRIPCION:
+        <input type="text" name="CDESCRIPCION" id="CDESCRIPCION">
+        <br>
+        NOMBRE DE COMPAÑIA:
+        <input type="text" name="NOMBRE_CIA" id="NOMBRE_CIA">
+        <br>
+        COLEGIO DE PROCEDENCIA:
+        <select id="colegio" name="cole" id="cole">
+            <option value="colegio1">Colegio1</option>
+            <option value="colegio2">Colegio2</option>
+        </select>
+        <br>
+        COLEGIO PROCEDENCIA INPUT:
+        <input type="text" name="COLEGIO_PROC_TXT" id="COLEGIO_PROC_TXT">
+        <br>
+        FASE ALCANZADA:
+        <input type="text" name="FASE_ALCANZADA" id="FASE_ALCANZADA">
+        <br>
+        
+        <input type="submit" value="Enviar">
+    </form>
+
+</div>
+{% endblock %}

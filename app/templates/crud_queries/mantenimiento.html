@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="paralax" style="background-image: url(https://jawperu.org/wp-content/uploads/2020/08/Artboard-1.png)">
+    <div class="overlay">
+        <div class="centrado">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="abajo-paralax-linea"></div>
+</div>
+
+<h1> Elige una opción </h1>
+
+<a style="color:blue;" href="{{url_for('crud_queries.mantenimiento_cia')}}">MANTENIMIENTO DE COMPAÑIAS</a>
+
+<a style="color:blue;" href="{{url_for('crud_queries.mantenimiento_jurados')}}">MANTENIMIENTO DE JURADOS</a>
+
+{% endblock %}

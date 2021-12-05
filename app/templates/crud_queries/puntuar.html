@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align: center; font-weight: bolder;"> Puntuar Compañias - Fase 1</h1>
+
+<div class = "form-container">
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>COD_CIA</th>
+                <th>NOMBRE_CIA</th>
+                <th>COLEGIO</th>
+                <th>PUNTUACION</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for compania in tabla_companias %}
+            <tr>
+                <td>{{compania[0]}}</td>
+                <td>{{compania[1]}}</td>
+                <td>{{compania[2]}}</td>
+                <td> 
+                    <form method="post" action="/puntuar" enctype="multipart/form-data">
+                        PUNTAJE:
+                        <input type="number" name="PUNT_ACUM" id="PUNT_ACUM">
+                        <input type="submit" value="Enviar">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    
+
+</div>
+
+{% endblock %}
