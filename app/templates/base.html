@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <hgroup>
+        <div class="centrado">
+            <div class="logo_header">
+                <a href="{{url_for('main.index')}}">
+                    <img src="http://jawperu.org/wp-content/themes/twentytwelve-child/images/logo_ja_peru.jpg" alt="JA Perú">
+                </a>
+            </div>
+        </div>
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+        <div class="centrado">
+            <div class="iso_header"></div>
+            <!-- Se obvia button, a de la pagina principal-->
+            <div class="menu_animation">
+                <div class="menu-menu-principal-header-container">
+                    <ul id="menu-menu-principal-header" class="nav-menu">
+            <!-- Se estan tomando solo dos valores de las listas-->
+                        <li id="menu-item-86">
+
+                        </li>
+                        <li id="menu-item-196">
+                            <a href="{{url_for('main.register')}}">Registrarse</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </nav>
+    
+    </head>
+
+    <body>
+        <div id="main" class="wrapper">
+        <!--{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+
+            {% for message in messages %}
+            <li> {{message}} </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}-->
+
+    {% block content %}
+
+    {% endblock %}
+        </div>
+    </body>
+</html>
