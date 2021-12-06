@@ -2,35 +2,33 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 
+from app.dashboard.figures import first_figure, second_figure
+
 import pandas as pd
+import plotly.graph_objects as go
 
-#Acá debería jalar mis datos para el reporte.
-df = pd.DataFrame({
-     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-})
+fig = first_figure()
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+fig_ = second_figure()
 
-layout =  html.Div([#Banner
+
+layout =  html.Div([      #Banner
   html.Div([
   html.Div([
     html.P("Junior Achievement Peru")
     ], className="nombreApp"),
   html.Div([
     html.Img(src="http://jawperu.org/wp-content/themes/twentytwelve-child/images/logo_ja_peru.jpg", alt="logo")
-  ], className="logoBBVA")
+  ], className="logoJA")
   ], className="header"),
 
-  #Contenedor de los 4 dash
-
+  #--------------------------------Contenedor de los 4 dash--------------------------------
   html.Div([
     html.Div([
       html.Div([
 
         html.Div([
-          html.H2("Porcentaje de participantes por grado"),
+          html.H2("Colegios con compañias top 5"),
           html.P(""),
           html.Div([
             dcc.Graph(
@@ -40,12 +38,12 @@ layout =  html.Div([#Banner
           ],className="grafico-left")
         ], className="graficaLeft"),
         html.Div([
-          html.H2("Numero de compañias por zona geografica"),
+          html.H2("Top 3 Compañias por Colegio"),
           html.P(""),
           html.Div([
             dcc.Graph(
               id="graph_two",
-              figure=fig
+              figure=fig_
             )
           ], className="grafico-right")
         ], className="graficaRight")
@@ -54,7 +52,7 @@ layout =  html.Div([#Banner
 
     html.Div([
       html.Div([
-        html.H2("Otro gato"),
+        html.H2("Porcentaje de participacion - Nivel Estudiantil"),
         html.P(""),
         html.Div([
           dcc.Dropdown(id="graph-control-corp",
@@ -68,15 +66,19 @@ layout =  html.Div([#Banner
           dcc.Graph(id="sentiment_graph")
                   ])
                 ], className="grafico-left2")
-              ], className="graficaLeft")
-              ], className="graficaBlock"),
-      html.Div([
-        html.Div([
+              ], className="graficaLeft"),
           html.Div([
-
+        html.H2("Porcentaje de participacion - Tipo de Colegio"),
+        html.Div([
+          html.Div([dcc.Graph(
+              id="graph_three",
+              figure=fig
+            )
           ])
         ],className="grafico-right")
       ],className="graficaRight")
     ], className="graficaRelative")
+              ], className="graficaBlock"),
+      
     
   ], className="graficas")

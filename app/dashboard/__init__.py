@@ -8,3 +8,5 @@ def create_dash_applcation(flask_app):
     url_base_path_name='/dashboard')
 
     return dash_app
+
+from app.dashboard import figures

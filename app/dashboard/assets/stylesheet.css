@@ -41,13 +41,13 @@ body{
     font-size: 4rem;
     font-weight: bold;
 }
-.logoBBVA{
+.logoJA{
     height: 4rem;
     position: absolute;
     top: 2rem;
     right: 4rem;
 }
-.logoBBVA img{
+.logoJA img{
     height: 100%;
 }
 .graficaBlock{
