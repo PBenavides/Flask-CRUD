@@ -7,14 +7,6 @@ import cx_Oracle
 from config import Config
 from flask import g
 
-#Para la conexion
-#host = Config['HOST']
-#user =  Config['USER']
-#password = Config['PASSWORD']
-#port = Config['PORT']
-#service = Config['SERVICE']
-#--------------------------------------IMPORTAR KEYS DE OTRO LADO
-#--------------------------------------IMPORTAR KEYS DE OTRO LADO
 HOST = 'localhost'
 user = 'system'
 password = 'admin'

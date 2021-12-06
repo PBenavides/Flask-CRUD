@@ -60,11 +60,12 @@ def resultados():
     conn, cursor = get_db()
 
     sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL, \
-        FASE_ALCANZADA FROM COMPAÑIA C, COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC ORDER BY C.FASE_ALCANZADA DESC"
+        FASE_ALCANZADA FROM COMPAÑIA C, COLEGIO COL \
+            WHERE COL.COD_COLEGIO = C.COLEGIO_PROC ORDER BY C.FASE_ALCANZADA DESC"
 
     cursor.execute(sql_query)
     tabla_resultados = cursor.fetchall()
-    #print(tabla_resultados)
+
     return render_template('crud_queries/resultados.html', tabla_resultados=tabla_resultados)
 
 @bp.route('/mantenimiento')
@@ -84,18 +85,6 @@ def mantenimiento_cia():
     print("Se ha eliminado el {}".format(id))
     return render_template('crud_queries/mantenimiento-cia.html', tabla=tabla)
 
-@bp.route('/eliminar/<int:id>')
-def eliminar(id):
-    """
-    FALTA ELIMINAR REGISTROS SELECCIONADOS CON PROCEDURE.
-    """
-    conn, cursor = get_db()
-
-    sql_delete = "DELETE FROM COMPAÑIA WHERE COD_CIA = {}".format(id)
-
-    cursor.execute(sql_delete)
-    conn.commit()
-    return redirect('/')
 
 @bp.route('/editar/<int:id>')
 def editar(id):
@@ -200,6 +189,28 @@ def editar_jurado(id):
         
     return render_template('crud_queries/editar-jurado.html', jurado_data=jurado_data)
 
+@bp.route('/eliminar-jurado/<int:id>')
+def eliminar_jurado(id):
+    """
+    """
+    conn, cursor = get_db()
+    cursor.callproc('ELIMINAR_JURADO',[id])
+    conn.commit()
+
+    return redirect('/mantenimiento-jurados')
+
+@bp.route('/eliminar-cia/<int:id>')
+def eliminar_cia(id):
+    """
+    """
+    conn, cursor = get_db()
+
+    cursor.callproc('ELIMINAR_CIA',[id])
+    conn.commit()
+    flash("Se eliminó toda la información de la compañia con ID nro {}".format(id))
+    
+    return redirect('/mantenimiento-cia')
+
 @bp.route('/ver-actividades-jurado/<int:id>')
 def ver_actividad(id):
     """
@@ -248,13 +259,12 @@ def sgte_fase():
     tabla_resultados = cursor.fetchall()
 
     if request.method == 'POST':
+        
         conn, cursor = get_db()
         nro_part = int(request.form['NRO_PARTICIPANTES'])
         cursor.callproc('ganadoresRonda',[nro_part])
         conn.commit()
+
         return redirect('/sgte-fase')
 
     return render_template('crud_queries/sgte_fase.html', tabla_resultados=tabla_resultados)
-
-
-
