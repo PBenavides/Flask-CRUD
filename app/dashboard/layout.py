@@ -1,16 +1,19 @@
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 import plotly.express as px
 
-from app.dashboard.figures import first_figure, second_figure
+from app.dashboard.figures import first_figure, second_figure, third_figure, last_figure
 
 import pandas as pd
 import plotly.graph_objects as go
 
 fig = first_figure()
 
-fig_ = second_figure()
+fig_2 = second_figure()
 
+fig_3 = third_figure()
+
+fig_4 = last_figure()
 
 layout =  html.Div([      #Banner
   html.Div([
@@ -28,7 +31,7 @@ layout =  html.Div([      #Banner
       html.Div([
 
         html.Div([
-          html.H2("Colegios con compañias top 5"),
+          html.H2("Participación de Colegios por Región"),
           html.P(""),
           html.Div([
             dcc.Graph(
@@ -38,12 +41,12 @@ layout =  html.Div([      #Banner
           ],className="grafico-left")
         ], className="graficaLeft"),
         html.Div([
-          html.H2("Top 3 Compañias por Colegio"),
+          html.H2("Rendimiento de Colegios por Región"),
           html.P(""),
           html.Div([
             dcc.Graph(
               id="graph_two",
-              figure=fig_
+              figure=fig_4
             )
           ], className="grafico-right")
         ], className="graficaRight")
@@ -52,18 +55,13 @@ layout =  html.Div([      #Banner
 
     html.Div([
       html.Div([
-        html.H2("Porcentaje de participacion - Nivel Estudiantil"),
+        html.H2("Tabla de Rendimiento de Colegios"),
         html.P(""),
         html.Div([
-          dcc.Dropdown(id="graph-control-corp",
-          options=["uno","dos"],
-          value="SAGA"),
-          dcc.Dropdown(id='graph-control-doctype',
-          options=["tres","cuatro"],
-          value="NOTAS"),
-    
-          html.Div([
-          dcc.Graph(id="sentiment_graph")
+          html.Div([dcc.Graph(
+              id="graph_three",
+              figure=fig_3
+            )
                   ])
                 ], className="grafico-left2")
               ], className="graficaLeft"),
@@ -71,8 +69,8 @@ layout =  html.Div([      #Banner
         html.H2("Porcentaje de participacion - Tipo de Colegio"),
         html.Div([
           html.Div([dcc.Graph(
-              id="graph_three",
-              figure=fig
+              id="graph_four",
+              figure=fig_2
             )
           ])
         ],className="grafico-right")

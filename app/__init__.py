@@ -22,9 +22,10 @@ def create_app(config_class = Config):
     from app.crud_queries import bp as crud_bp
     app.register_blueprint(crud_bp)
     print('crud bp importado y registrado')
-
+    app.app_context().push()
     register_dashapp(app)
 
+    
     return app
 
 def register_dashapp(app):
