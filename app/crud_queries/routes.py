@@ -9,11 +9,32 @@ from app.database import get_db
 @bp.route('/crear-cia', methods=['GET','POST'])
 def crear_cia():
 
+    if request.method == 'POST':
+
+        #LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA
+
+        #Genero el ID llamando a una función de Oracle.
+        conn, cursor = get_db()
+        nuevo_cod_cia = cursor.callfunc('NUEVO_COD_CIA', int)
+
+        logo = request.form['LOGO']
+        cdescripcion = request.form['CDESCRIPCION']
+        nombre_cia = request.form['NOMBRE_CIA']
+        colegio_proc = int(request.form['COLEGIO_PROC'])
+        fase_alcanzada = int(request.form['FASE_ALCANZADA'])
+
+        cursor.callproc('insertar_cia',[nuevo_cod_cia, logo, cdescripcion, nombre_cia, colegio_proc, fase_alcanzada])
+        flash('Se ha registrado a la empresa con ID número {}'.format(nuevo_cod_cia))
+        conn.commit()
+        return redirect('/crear-cia')
+
     return render_template('crud_queries/crear_nueva_cia.html')
 
 @bp.route('/puntuar-cia',methods=['GET','POST'])
 def puntuar_cia():
-
+    """
+    Esto es la pagina con puntajes. Para el Jurado.
+    """
     conn, cursor = get_db()
     sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL FROM COMPAÑIA C, \
         COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC"
@@ -23,13 +44,23 @@ def puntuar_cia():
     #close_db()
     return render_template('crud_queries/puntuar.html', tabla_companias=tabla_companias)
 
+@bp.route('/puntuar', methods=['POST'])
+def puntuar():
+
+    conn, cursor = get_db()
+    cod_cia = request.form["COD_CIA"]
+    punt_acum = request.form["PUNT_ACUM"]
+    cursor.callproc('ingresarNotas',[int(cod_cia), int(punt_acum)])
+    conn.commit()
+
+    return redirect('puntuar-cia')
 
 @bp.route('/resultados')
 def resultados():
     conn, cursor = get_db()
 
-    sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL,\
-         FASE_ALCANZADA FROM COMPAÑIA C, COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC"
+    sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL, \
+        FASE_ALCANZADA FROM COMPAÑIA C, COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC ORDER BY C.FASE_ALCANZADA DESC"
 
     cursor.execute(sql_query)
     tabla_resultados = cursor.fetchall()
@@ -161,37 +192,13 @@ def editar_jurado(id):
     """
     Abrir formulario de edición de Jurados
     """
-    conn, cursor = get_db()
 
+    conn, cursor = get_db()
     cursor.execute("SELECT * FROM JURADO WHERE COD_JURADO = {}".format(id))
     jurado_data = cursor.fetchall()
+    print("JURADO DATA:", jurado_data)
         
     return render_template('crud_queries/editar-jurado.html', jurado_data=jurado_data)
-
-@bp.route('/actualizar-jurado', methods=['POST'])
-def actualizar_jurado():
-    """
-    Actualizar segun el edit form
-    """
-    COD_JURADO = request.form['COD_JURADO']
-    JPRIMER_NOMBRE = request.form['JPRIMER_NOMBRE']	
-    JSEG_NOMBRE = request.form['JSEG_NOMBRE']	
-    JPRIMER_APELLIDO = request.form['JPRIMER_APELLIDO']	
-    JSEG_APELLIDO = request.form['JSEG_APELLIDO']	
-    CORREO_JURADO = request.form['CORREO_JURADO']	
-    LINKEDIN = request.form['LINKEDIN']
-
-    sql_update = f"UPDATE JURADO SET  JPRIMER_NOMBRE = '{JPRIMER_NOMBRE}',\
-        JSEG_NOMBRE = {JSEG_NOMBRE}, JPRIMER_APELLIDO = '{JPRIMER_APELLIDO}',\
-            CORREO_JURADO = {CORREO_JURADO}, LINKEDIN = '{LINKEDIN}'\
-             JSEG_APELLIDO={JSEG_APELLIDO} WHERE COD_CIA = {COD_JURADO}"
-
-    conn, cursor = get_db()
-
-    cursor.execute(sql_update)
-
-    conn.commit()
-    return redirect('/mantenimiento-jurado')
 
 @bp.route('/ver-actividades-jurado/<int:id>')
 def ver_actividad(id):
@@ -203,5 +210,51 @@ def ver_actividad(id):
     cursor.execute("SELECT * FROM ACTIVIDAD WHERE COD_JURADO = {}".format(id))
     actividades = cursor.fetchall()
 
-    return render_template('crud_queries/ver-actividades-jurado/<id>.html', actividades)
+    return render_template('crud_queries/ver-actividades-jurado.html', actividades=actividades,id=id)
+
+@bp.route('/actualizar-jurado', methods=['POST'])
+def actualizar_jurado():
+    """
+    Actualizar segun el edit form
+    """
+    COD_JURADO = int(request.form['COD_JURADO'])
+    JPRIMER_NOMBRE = request.form['JPRIMER_NOMBRE']	
+    JSEG_NOMBRE = request.form['JSEG_NOMBRE']	
+    JPRIMER_APELLIDO = request.form['JPRIMER_APELLIDO']	
+    JSEG_APELLIDO = request.form['JSEG_APELLIDO']	
+    CORREO_JURADO = request.form['CORREO_JURADO']	
+    LINKEDIN = request.form['LINKEDIN']
+
+    conn, cursor = get_db()
+
+    cursor.callproc("update_jurado",[COD_JURADO, JPRIMER_NOMBRE, JSEG_NOMBRE, JPRIMER_APELLIDO, JSEG_APELLIDO,\
+        CORREO_JURADO, LINKEDIN])
+    
+    flash("Se editó correctamente al jurado nro {}: {} {} {}".format(COD_JURADO, JPRIMER_NOMBRE, JSEG_NOMBRE, JPRIMER_APELLIDO))
+
+    conn.commit()
+    return redirect('/mantenimiento-jurados')
+
+
+@bp.route('/sgte-fase', methods=['GET','POST'])
+def sgte_fase():
+
+    conn, cursor = get_db()
+
+    sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL, \
+        FASE_ALCANZADA FROM COMPAÑIA C, COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC ORDER BY C.FASE_ALCANZADA DESC"
+
+    cursor.execute(sql_query)
+    tabla_resultados = cursor.fetchall()
+
+    if request.method == 'POST':
+        conn, cursor = get_db()
+        nro_part = int(request.form['NRO_PARTICIPANTES'])
+        cursor.callproc('ganadoresRonda',[nro_part])
+        conn.commit()
+        return redirect('/sgte-fase')
+
+    return render_template('crud_queries/sgte_fase.html', tabla_resultados=tabla_resultados)
+
+
 

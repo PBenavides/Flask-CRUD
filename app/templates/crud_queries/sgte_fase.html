@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class = "first-form-container">
+    <form method="post" action="/sgte-fase" enctype="multipart/form-data">
+        <input type="number" value="5" name="NRO_PARTICIPANTES" id="NRO_PARTICIPANTES" max="30" min="5">
+        <br>
+        <input type="submit" value="Cambiar de Fase">
+    </form>
+</div>
+
 <h1 style="text-align: center; font-weight: bolder;"> Resultados Compañia</h1>
-
 <div class = "form-container">
-
     <table class="table table-light">
         <thead class="thead-light">
             <tr>
@@ -12,10 +18,8 @@
                 <th>NOMBRE CIA |</th>
                 <th>NOMBRE COLEGIO |</th>
                 <th>RONDA |</th>
-
             </tr>
         </thead>
-        
         <tbody>
             {% for compania in tabla_resultados %}
             <tr>
@@ -27,8 +31,9 @@
             {% endfor %}
         </tbody>
     </table>
-
-
 </div>
+
+
+
 
 {% endblock %}

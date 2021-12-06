@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% for field in jurado %}
-
+{% for field in jurado_data %}
+<h1>Formulario para editar jurado</h1> 
 <div class = "form-container">
-
-    
 
 
     <form method="post" action="/actualizar-jurado" enctype="multipart/form-data">
@@ -27,10 +25,10 @@
         <input type="text" value="{{field[4]}}" name="JSEG_APELLIDO" id="JSEG_APELLIDO">
         <br>
         CORREO JURADO:
-        <input type="text" value="{{field[6]}}" name="CORREO_JURADO" id="CORREO_JURADO">
+        <input type="text" value="{{field[5]}}" name="CORREO_JURADO" id="CORREO_JURADO">
         <br>
         LINKEDIN:
-        <input type="text" value="{{field[7]}}" name="LINKEDIN" id="LINKEDIN">
+        <input type="text" value="{{field[6]}}" name="LINKEDIN" id="LINKEDIN">
         <br>
         <input type="submit" value="Editar datos Jurado">
     </form>

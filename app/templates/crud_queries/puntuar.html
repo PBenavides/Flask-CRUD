@@ -24,6 +24,7 @@
                 <td> 
                     <form method="post" action="/puntuar" enctype="multipart/form-data">
                         PUNTAJE:
+                        <input type="hidden" value={{compania[0]}} name="COD_CIA" id="COD_CIA">
                         <input type="number" name="PUNT_ACUM" id="PUNT_ACUM">
                         <input type="submit" value="Enviar">
                     </form>
