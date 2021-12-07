@@ -2,36 +2,39 @@
 {% block content %}
 
 {% for field in jurado_data %}
-<h1>Formulario para editar jurado</h1> 
-<div class = "form-container">
+<h1>Formulario para editar jurado</h1>
+<div class="box_relative">
+    <div class = "form_content">
 
 
-    <form method="post" action="/actualizar-jurado" enctype="multipart/form-data">
-        <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
-        <!-- agregar inputs para crear nueva cia.-->
-        CODIGO JURADO:
-        <input type="text" value="{{field[0]}}" name="COD_JURADO" id="COD_JURADO">
-        <br>
-        PRIMER NOMBRE:
-        <input type="text" value="{{field[1]}}" name="JPRIMER_NOMBRE" id="JPRIMER_NOMBRE">
-        <br>
-        SEGUNDO NOMBRE:
-        <input type="text" value="{{field[2]}}" name="JSEG_NOMBRE" id="JSEG_NOMBRE">
-        <br>
-        PRIMER APELLIDO:
-        <input type="text" value="{{field[3]}}" name="JPRIMER_APELLIDO" id="JPRIMER_APELLIDO">
-        <br>
-        SEGUNDO APELLIDO:
-        <input type="text" value="{{field[4]}}" name="JSEG_APELLIDO" id="JSEG_APELLIDO">
-        <br>
-        CORREO JURADO:
-        <input type="text" value="{{field[5]}}" name="CORREO_JURADO" id="CORREO_JURADO">
-        <br>
-        LINKEDIN:
-        <input type="text" value="{{field[6]}}" name="LINKEDIN" id="LINKEDIN">
-        <br>
-        <input type="submit" value="Editar datos Jurado">
-    </form>
+        <form method="post" action="/actualizar-jurado" enctype="multipart/form-data">
+            <!--COD_CIA - LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
+            <!-- agregar inputs para crear nueva cia.-->
+            CODIGO JURADO:
+            <input type="text" value="{{field[0]}}" name="COD_JURADO" id="COD_JURADO">
+            <br>
+            PRIMER NOMBRE:
+            <input type="text" value="{{field[1]}}" name="JPRIMER_NOMBRE" id="JPRIMER_NOMBRE">
+            <br>
+            SEGUNDO NOMBRE:
+            <input type="text" value="{{field[2]}}" name="JSEG_NOMBRE" id="JSEG_NOMBRE">
+            <br>
+            PRIMER APELLIDO:
+            <input type="text" value="{{field[3]}}" name="JPRIMER_APELLIDO" id="JPRIMER_APELLIDO">
+            <br>
+            SEGUNDO APELLIDO:
+            <input type="text" value="{{field[4]}}" name="JSEG_APELLIDO" id="JSEG_APELLIDO">
+            <br>
+            CORREO JURADO:
+            <input type="text" value="{{field[5]}}" name="CORREO_JURADO" id="CORREO_JURADO">
+            <br>
+            LINKEDIN:
+            <input type="text" value="{{field[6]}}" name="LINKEDIN" id="LINKEDIN">
+            <br>
+            <input type="submit" value="Editar datos Jurado">
+        </form>
+    </div>
+</div>
 {% endfor %}
 
 {% endblock %}

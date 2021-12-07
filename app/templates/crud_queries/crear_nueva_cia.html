@@ -2,7 +2,8 @@
 {% block content %}
 <h1 style="text-align: center; font-weight: bolder;"> Crear nueva compañia </h1>
 
-<div class = "form-container">
+<div class="box_relative">
+<div class = "form_content">
 
     <form method="post" action="/crear-cia" enctype="multipart/form-data">
         <!-- LOGO - CDESCRIPCION - NOMBRE_CIA - COLEGIO_PROC FASE_ALCANZADA-->
@@ -27,6 +28,6 @@
         
         <input type="submit" value="Enviar">
     </form>
-
+</div>
 </div>
 {% endblock %}

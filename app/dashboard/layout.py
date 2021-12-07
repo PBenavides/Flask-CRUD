@@ -1,6 +1,5 @@
 from dash import dcc
 from dash import html
-import plotly.express as px
 
 from app.dashboard.figures import first_figure, second_figure, third_figure, last_figure
 

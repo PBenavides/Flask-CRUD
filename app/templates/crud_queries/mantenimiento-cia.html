@@ -10,11 +10,9 @@
             <tr>
                 <th>COD</th>
                 <th>LINK LOGO</th>
-                <!--<th>DESCRIPCION</th>-->
                 <th>NOMBRE COMPAÑIA</th>
                 <th>COLEGIO </th>
                 <th>FASE ALCANZADA</th>
-                <!--<th>LINK RED SOCIAL</th>-->
                 <th>RED SOCIAL</th>
                 <th>PUNTUACION</th>
                 <th>FASE</th>
@@ -22,8 +20,6 @@
         </thead>
         <tbody>
             {% for compania in tabla %}
-            <!-- C.COD_CIA, C.LOGO, C.CDESCRIPCION, C.NOMBRE_CIA, C.COLEGIO_PROC, 
-                C.FASE_ALCANZADA, RS.LINK, RS.RSNOMBRE AS NOMBRE_RED_SOCIAL, P.PUNT_ACUM, P.COD_FASE  -->
             <tr>
                 <td>{{compania[0]}}</td>
                 <td>{{compania[1]}}</td>
@@ -36,8 +32,10 @@
                 <td>{{compania[8]}}</td>
                 <td>{{compania[9]}}</td>
                 <td> 
-                    <a style="color:blue;" href = "/editar/{{compania[0]}}"> Editar </a> | 
-                    <a style="color:blue;" href = "/eliminar-cia/{{compania[0]}}"> Eliminar </a>
+                    <div class="table_link">
+                        <a class="" href = "/editar/{{compania[0]}}"> Editar </a>
+                        <a class="" href = "/eliminar-cia/{{compania[0]}}"> Eliminar </a>
+                    </div>
                 </td>
             </tr>
             {% endfor %}

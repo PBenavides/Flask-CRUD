@@ -36,13 +36,17 @@ def puntuar_cia():
     Esto es la pagina con puntajes. Para el Jurado.
     """
     conn, cursor = get_db()
-    sql_query = "SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL FROM COMPAÑIA C, \
-        COLEGIO COL WHERE COL.COD_COLEGIO = C.COLEGIO_PROC"
+
+    sql_query = """SELECT COD_CIA, NOMBRE_CIA, COL.NOMBRE_COL FROM COMPAÑIA C, COLEGIO COL 
+        WHERE COL.COD_COLEGIO = C.COLEGIO_PROC AND Fase_alcanzada IN (
+                                SELECT MAX(Fase_alcanzada) FROM COMPAÑIA)"""
+
+    fase_actual = cursor.execute("SELECT MAX(Fase_alcanzada) FROM COMPAÑIA").fetchall()
 
     cursor.execute(sql_query)
     tabla_companias = cursor.fetchall()
     #close_db()
-    return render_template('crud_queries/puntuar.html', tabla_companias=tabla_companias)
+    return render_template('crud_queries/puntuar.html', tabla_companias=tabla_companias, fase_actual=fase_actual[0][0])
 
 @bp.route('/puntuar', methods=['POST'])
 def puntuar():

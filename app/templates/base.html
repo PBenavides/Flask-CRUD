@@ -14,72 +14,61 @@
     </hgroup>
 
     <nav id="site-navigation" class="main-navigation" role="navigation">
-        <div class="centrado">
-            <div class="iso_header"></div>
-            <!-- Se obvia button, a de la pagina principal-->
-            <div class="menu_animation">
-                <div class="menu-menu-principal-header-container">
-                    <ul id="menu-menu-principal-header" class="nav-menu">
-            <!-- Se estan tomando solo dos valores de las listas-->
-                        <li id="menu-item-86">
-                            {% if session %}
-                            <a href="{{ url_for('main.logout') }}">Cerrar Sesión</a>
-                            {% else %}                            
-                            <a href="{{url_for('main.login')}}">Iniciar Sesión</a>
-                            {% endif %}
-                        </li>
-                        <li id="menu-item-196">
-                            {% if session %}
-                            <a></a>
-                            {% else %}
-                            <a href="{{url_for('main.register')}}">Registrarse</a>
-                            {% endif %}
-                        </li>
-                        {% if permit == "admin" %}
-                            <li id="menu-item-86">
-                            <a href="{{url_for('crud_queries.mantenimiento')}}">Mantenimiento</a>
-                            </li>
-                            <li id="menu-item-86">
-                            <a href="/dashboard/">Dashboard</a>
-                            </li>
-                            <li id="menu-item-86">
-                                <a href="{{url_for('crud_queries.resultados')}}">Resultados</a>
-                            </li>
-                            <li id="menu-item-86">
-                                <a href="/crear-cia">Registrar Compañia</a>
-                            </li>
-                            <li id="menu-item-86">
-                                <a href="/puntuar-cia">Calificar</a>
-                            </li>
-                        {% elif permit == "colegio" %}
-                            <li id="menu-item-86">
-                                <a href="{{url_for('crud_queries.resultados')}}">Resultados</a>
-                            </li>
-                            <li id="menu-item-86">
-                                <a href="/crear-cia">Registrar Compañia</a>
-                            </li>
-                        {% elif permit == "jurado" %}
-                            <li id="menu-item-86">
-                                <a href="/puntuar-cia">Calificar</a>
-                            </li>
-                            <li id="menu-item-86">
-                                <a href="/resultados">Resultados</a>
-                            </li>
-                        {% else %} 
-
-                        <a></a>
-                        {% endif %}
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-
+        <ul id="menu-menu-principal-header" class="nav-menu">
+            <li id="menu-item-86">
+                {% if session %}
+                <a href="{{ url_for('main.logout') }}">Cerrar Sesión</a>
+                {% else %}                            
+                <a href="{{url_for('main.login')}}">Iniciar Sesión</a>
+                {% endif %}
+            </li>
+            <li id="menu-item-196">
+                {% if session %}
+                <a></a>
+                {% else %}
+                <a href="{{url_for('main.register')}}">Registrarse</a>
+                {% endif %}
+            </li>
+            {% if permit == "admin" %}
+                <li id="menu-item-86">
+                <a href="{{url_for('crud_queries.mantenimiento')}}">Mantenimiento</a>
+                </li>
+                <li id="menu-item-86">
+                <a href="/dashboard/">Dashboard</a>
+                </li>
+                <li id="menu-item-86">
+                    <a href="{{url_for('crud_queries.resultados')}}">Resultados</a>
+                </li>
+                <li id="menu-item-86">
+                    <a href="/crear-cia">Registrar Compañia</a>
+                </li>
+                <li id="menu-item-86">
+                    <a href="/puntuar-cia">Calificar</a>
+                </li>
+            {% elif permit == "colegio" %}
+                <li id="menu-item-86">
+                    <a href="{{url_for('crud_queries.resultados')}}">Resultados</a>
+                </li>
+                <li id="menu-item-86">
+                    <a href="/crear-cia">Registrar Compañia</a>
+                </li>
+            {% elif permit == "jurado" %}
+                <li id="menu-item-86">
+                    <a href="/puntuar-cia">Calificar</a>
+                </li>
+                <li id="menu-item-86">
+                    <a href="/resultados">Resultados</a>
+                </li>
+            {% else %} 
+            <!--<a></a>-->
+            {% endif %}
+        </ul>
     </nav>
     
     </head>
 
     <body>
+        
         <div id="main" class="wrapper">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -94,6 +83,9 @@
     {% block content %}
 
     {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         </div>
     </body>
 </html>
