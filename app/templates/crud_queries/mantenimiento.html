@@ -16,13 +16,19 @@
     <div class="abajo-paralax-linea"></div>
 </div>
 
-<h1> Elige una opción </h1>
+<div class="box_relative">
+    <div class="form_content">
+        <div class="text-center">
+            <h1> Elige una opción </h1>
+            <div class="links_buttons">
+                <a href="{{url_for('crud_queries.mantenimiento_cia')}}">Mantenimiento de compañía</a>
+                <a href="{{url_for('crud_queries.mantenimiento_jurados')}}">Mantenimiento de jurados</a>
+                <a href="{{url_for('crud_queries.sgte_fase')}}">Pasar a la siguiente fase</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a style="color:blue;" href="{{url_for('crud_queries.mantenimiento_cia')}}">MANTENIMIENTO DE COMPAÑIAS</a>
-
-<a style="color:blue;" href="{{url_for('crud_queries.mantenimiento_jurados')}}">MANTENIMIENTO DE JURADOS</a>
-
-<a style="color:blue;" href="{{url_for('crud_queries.sgte_fase')}}">PASAR A LA SIGUIENTE FASE</a>
 
 
 {% endblock %}
