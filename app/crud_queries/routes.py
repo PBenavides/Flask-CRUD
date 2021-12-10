@@ -123,13 +123,15 @@ def actualizar_cia():
     nombre_cia = request.form['NOMBRE_CIA'] 
     fase_alcanzada = request.form['FASE_ALCANZADA']
 
-    sql_update = f"UPDATE COMPAÑIA SET  logo = '{logo}', cdescripcion = '{cdescripcion}',\
-        colegio_proc = {cole_proc}, nombre_cia = '{nombre_cia}',\
-             fase_alcanzada={fase_alcanzada} WHERE COD_CIA = {cod_cia}"
+
+
+    #sql_update = f"UPDATE COMPAÑIA SET  logo = '{logo}', cdescripcion = '{cdescripcion}',\
+    #    colegio_proc = {cole_proc}, nombre_cia = '{nombre_cia}',\
+    #         fase_alcanzada={fase_alcanzada} WHERE COD_CIA = {cod_cia}"
 
     conn, cursor = get_db()
 
-    cursor.execute(sql_update)
+    cursor.callproc('update_cia',[logo,cdescripcion,nombre_cia, cole_proc, fase_alcanzada, cod_cia])
 
     conn.commit()
 
@@ -142,11 +144,11 @@ def actualizar_red_social():
     nombre_red = request.form['NOMBRE_RED']
     cod_cia = request.form['COD_CIA']
 
-    sql_update = f"UPDATE RED_SOCIAL SET LINK = '{link_red}'\
-        , RSNOMBRE = '{nombre_red}' WHERE COD_CIA = {cod_cia}"
+    #sql_update = f"UPDATE RED_SOCIAL SET LINK = '{link_red}'\
+    #    , RSNOMBRE = '{nombre_red}' WHERE COD_CIA = {cod_cia}"
 
     conn, cursor = get_db()
-    cursor.execute(sql_update)
+    cursor.callproc('update_red_social', [link_red, nombre_red, cod_cia])
     conn.commit()
 
     return redirect('/mantenimiento-cia')
@@ -158,11 +160,13 @@ def actualizar_participa():
     cod_fase = request.form['COD_FASE']
     cod_cia = request.form['COD_CIA']
 
-    sql_update = f"UPDATE PUNT_ACUM SET LINK = '{punt_acum}'\
-        , COD_FASE = '{cod_fase}' WHERE COD_CIA = {cod_cia}"
+    #sql_update = f"UPDATE PUNT_ACUM SET LINK = '{punt_acum}'\
+    #    , COD_FASE = '{cod_fase}' WHERE COD_CIA = {cod_cia}"
 
     conn, cursor = get_db()
-    cursor.execute(sql_update)
+
+    cursor.callprox('update_red_social',[punt_acum, cod_fase, cod_cia])
+
     conn.commit()
 
     return redirect('/mantenimiento-cia')
